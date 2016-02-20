@@ -4,13 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.LinkedList;
+
 /**
  * Created by Joe on 2/20/2016.
  */
 public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private LinkedList<Post> mPosts;
 
-
-    public PostAdapter(){
+    public PostAdapter(LinkedList<Post> posts){
 
     }
 
