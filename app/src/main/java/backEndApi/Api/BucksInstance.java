@@ -3,6 +3,7 @@ package backEndApi.Api;
 import java.util.Collection;
 import java.util.Map;
 
+import backEndApi.Implementation.User;
 import backEndApi.framework.IPost;
 import backEndApi.framework.IReview;
 import backEndApi.framework.IUser;
@@ -10,17 +11,18 @@ import backEndApi.framework.IUser;
 /**
  * Created by persinme on 2/20/2016.
  */
-public class UserProfile {
+public class BucksInstance {
     private IUser owner;
     private Collection<IPost> posts;
     private Collection<IReview> reviews;
-    private static UserProfile ourInstance = new UserProfile();
+    private static BucksInstance ourInstance = new BucksInstance();
 
-    public static UserProfile getInstance() {
+    public static BucksInstance getInstance() {
         return ourInstance;
     }
 
-    private UserProfile() {
+    private BucksInstance() {
+        owner = new User("username", "password");
     }
 
     public Collection<IReview> getReviews(){
