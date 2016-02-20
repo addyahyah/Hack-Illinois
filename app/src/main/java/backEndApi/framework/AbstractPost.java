@@ -12,6 +12,7 @@ public abstract class AbstractPost extends Observable implements IPost {
     private final int barginTime = 180; //in seconds
     protected IUser author;
     protected IUser seller;
+    protected String postId;
     protected String description;
     protected double price;
     protected List<IReply> replies;
@@ -20,6 +21,7 @@ public abstract class AbstractPost extends Observable implements IPost {
     protected boolean hasTransactionComplete;
 
     public AbstractPost(Map<String, Object> postMap){
+        this.postId = (String)postMap.get("id");
         this.author = (IUser)postMap.get("author");
         this.description = (String) postMap.get("description");
         this.price = (double) postMap.get("price");
