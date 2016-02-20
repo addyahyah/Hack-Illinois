@@ -1,4 +1,4 @@
-package backEndApi.Api;
+package backEndApi.Api.FacebookApi;
 
 import com.facebook.FacebookSdk;
 
