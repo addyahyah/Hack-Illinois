@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import java.util.LinkedList;
+
 /**
  * Created by Joe on 2/20/2016.
  */
@@ -22,6 +24,13 @@ public class MainActivity extends Activity{
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 
+        LinkedList<Post> dummyFeed = new LinkedList<>();
+        dummyFeed.add(new Post("Laundry", "Joe", "Pending", 3));
+        dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", 4));
+        dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", 22));
+
+        PostAdapter adapter = new PostAdapter(dummyFeed);
+        mRecyclerView.setAdapter(adapter);
 
     }
 
