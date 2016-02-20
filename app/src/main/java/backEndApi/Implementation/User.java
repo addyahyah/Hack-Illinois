@@ -1,5 +1,7 @@
 package backEndApi.Implementation;
 
+import com.facebook.Profile;
+
 import java.math.BigInteger;
 import java.util.Map;
 
@@ -10,7 +12,8 @@ import backEndApi.framework.IUser;
  * Created by persinme on 2/20/2016.
  */
 public class User implements IUser{
-    BigInteger facebookId;
+    Profile owner;
+    String facebookId;
     String name;
 
     public User(String userName, String password){
