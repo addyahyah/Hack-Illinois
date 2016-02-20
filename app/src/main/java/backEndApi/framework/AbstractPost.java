@@ -1,13 +1,13 @@
 package backEndApi.framework;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 /**
  * Created by yangr on 2/20/2016.
  */
-<<<<<<< HEAD
-public class AbstractPost extends Observable implements IPost {
-=======
 public abstract class AbstractPost extends Observable implements IPost {
     private final int barginTime = 180; //in seconds
     protected IUser author;
@@ -29,7 +29,6 @@ public abstract class AbstractPost extends Observable implements IPost {
         this.expirationTime = (Date) postMap.get("expirationTime");
         this.hasTransactionComplete = (boolean) postMap.get("hasTransactionComplete");
     }
->>>>>>> 551b81aa237341bbc5b1c4b0d555d3dea30ddfcb
 
     @Override
     public IUser getAuthor() {
