@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 import java.util.LinkedList;
@@ -38,7 +37,7 @@ public class MainActivity extends Activity{
         dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", 4));
         dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", 22));
 
-        PostAdapter adapter = new PostAdapter(dummyFeed);
+        PostAdapter adapter = new PostAdapter(dummyFeed, this);
         mRecyclerView.setAdapter(adapter);
 
     }

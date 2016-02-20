@@ -1,9 +1,11 @@
 package com.example.hackillinois0219;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -14,7 +16,7 @@ import java.util.LinkedList;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private LinkedList<Post> mPosts;
 
-    public PostAdapter(LinkedList<Post> posts){
+    public PostAdapter(LinkedList<Post> posts, Activity activity){
         mPosts = posts;
 
     }
@@ -55,6 +57,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             mStatus = (TextView)itemView.findViewById(R.id.txt_post_status);
             mComments = (TextView)itemView.findViewById(R.id.txt_post_comments);
             mBid = (TextView)itemView.findViewById(R.id.txt_post_bid);
+
+            LinearLayout layout = (LinearLayout) itemView.findViewById(R.id.post_holder);
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
 
 
         }

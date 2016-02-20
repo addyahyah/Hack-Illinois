@@ -7,7 +7,7 @@
     android:layout_margin="8dp">
 
     <LinearLayout
-        android:id="@+id/mainHolder"
+        android:id="@+id/post_holder"
         android:layout_width="match_parent"
         android:layout_height="116dp"
         android:background="?android:selectableItemBackground"
