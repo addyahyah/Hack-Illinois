@@ -1,6 +1,7 @@
 package com.example.hackillinois0219;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ import java.util.LinkedList;
  */
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private LinkedList<Post> mPosts;
+    private Activity mActivity;
 
     public PostAdapter(LinkedList<Post> posts, Activity activity){
         mPosts = posts;
+        mActivity = activity;
 
     }
 
@@ -62,7 +65,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(mActivity.getApplicationContext(), PostActivity.class);
+//                    intent.putExtra(DetailActivity.EXTRA_PARAM_ID, i);
+                    mActivity.startActivity(intent);
 
                 }
             });
