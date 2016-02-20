@@ -8,7 +8,7 @@ import java.util.Observable;
 /**
  * Created by yangr on 2/20/2016.
  */
-public class AbstractPost extends Observable implements IPost {
+public abstract class AbstractPost extends Observable implements IPost {
     private final int barginTime = 180; //in seconds
     protected IUser author;
     protected IUser seller;
@@ -31,17 +31,8 @@ public class AbstractPost extends Observable implements IPost {
     }
 
     @Override
-    public void reply(IUser author, String content) {
-
+    public IUser getAuthor() {
+        return this.author;
     }
 
-    @Override
-    public void bid(IUser bidder, int amount) {
-
-    }
-
-    @Override
-    public void pay(IUser buyer, IUser seller) {
-
-    }
 }

@@ -11,4 +11,6 @@ public interface IPost {
     public void bid(IUser bidder, int amount);
 
     public void pay(IUser buyer, IUser seller);
+
+    public IUser getAuthor();
 }
