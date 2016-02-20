@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -30,11 +28,22 @@ public class MainFragment extends Fragment {
     LoginButton facebookLoginButton;
     CallbackManager callbackManager;
 
+    public MainFragment(){}
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        facebookLoginButton = (LoginButton) getActivity().findViewById(R.id.log_in_button);
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.login_fragment, container, false);
+
+        facebookLoginButton = (LoginButton) view.findViewById(R.id.log_in_button);
 
         facebookLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
 
@@ -55,6 +64,7 @@ public class MainFragment extends Fragment {
                                 try {
                                     String email = object.getString("email");
                                     String birthday = object.getString("birthday"); // 01/31/1980 format
+                                    Log.v("birthday", birthday);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -80,36 +90,6 @@ public class MainFragment extends Fragment {
             public void onError(FacebookException exception) {
                 // App code
                 Log.v("LoginActivity", exception.getCause().toString());
-            }
-        });
-    }
-
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
-
-        facebookLoginButton = (LoginButton) view.findViewById(R.id.log_in_button);
-        facebookLoginButton.setReadPermissions("user_friends");
-        // If using in a fragment
-        facebookLoginButton.setFragment(this);
-        // Other app specific specialization
-        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
             }
         });
         return view;

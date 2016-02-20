@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Show as grid" />
+
+    <item
+        android:id="@+id/action_toggle"
+        android:icon="@drawable/refresh"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Show as grid" />
+
+
+</menu>
