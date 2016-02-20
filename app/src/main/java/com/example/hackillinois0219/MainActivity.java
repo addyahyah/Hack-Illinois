@@ -8,8 +8,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.LinkedList;
 
@@ -20,16 +23,25 @@ public class MainActivity extends Activity{
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mStaggeredLayoutManager;
     private Menu mMenu;
+    private LoginButton facebookLoginButton;
+    private Toolbar toolbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-//        FacebookSdk.sdkInitialize(this);
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.login_fragment_container, new MainFragment(), "login");
         ft.commit();
+
+
+
+        facebookLoginButton = (LoginButton)findViewById(R.id.log_in_button);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setUpActionBar();
 
         mRecyclerView = (RecyclerView)findViewById(R.id.layout_feed);
         mStaggeredLayoutManager =
@@ -79,6 +91,16 @@ public class MainActivity extends Activity{
         });
 
         return true;
+    }
+
+    private void setUpActionBar() {
+        if (toolbar != null) {
+            setActionBar(toolbar);
+            getActionBar().setDisplayHomeAsUpEnabled(false);
+            getActionBar().setDisplayShowTitleEnabled(true);
+            getActionBar().setElevation(20);
+            getActionBar().setTitle("Feed");
+        }
     }
 
 }

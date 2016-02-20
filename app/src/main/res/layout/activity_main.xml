@@ -4,6 +4,10 @@
     android:id="@+id/login_fragment_container"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
