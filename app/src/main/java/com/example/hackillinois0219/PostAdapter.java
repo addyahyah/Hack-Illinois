@@ -28,6 +28,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mTitle.setText(mPosts.get(position).mTitle);
+        holder.mStatus.setText(mPosts.get(position).mStatus);
+        holder.mOwner.setText(mPosts.get(position).mName);
+        holder.mComments.setText(mPosts.get(position).mComments + " Comments");
+        holder.mBid.setText(mPosts.get(position).mBid + "$");
 
     }
 
