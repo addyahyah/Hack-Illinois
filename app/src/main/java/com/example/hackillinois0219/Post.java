@@ -11,13 +11,16 @@ import backEndApi.framework.IUser;
 public class Post implements IPost, Serializable {
     String mTitle;
     String mName;
-    String status;
+    String mStatus;
+    int mComments;
     int mBid;
 
     public Post(String title, String name, String status, int bid){
         mTitle = title;
         mName = name;
         mBid = bid;
+        mStatus = status;
+        mComments = 1;
 
     }
 
