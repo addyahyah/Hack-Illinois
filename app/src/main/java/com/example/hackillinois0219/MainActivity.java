@@ -1,6 +1,7 @@
 package com.example.hackillinois0219;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,8 +21,12 @@ public class MainActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
+//        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.login_fragment_container, new MainFragment(), "login");
+        ft.commit();
 
         mRecyclerView = (RecyclerView)findViewById(R.id.layout_feed);
         mStaggeredLayoutManager =
