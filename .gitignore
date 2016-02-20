@@ -24,7 +24,7 @@ Thumbs.db
 # Eclipse project files
 .classpath
 .project
-.iml
+*.iml
 
 # Android Studio
 .idea
