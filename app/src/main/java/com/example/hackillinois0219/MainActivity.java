@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import java.util.LinkedList;
 
 /**
@@ -17,6 +20,7 @@ public class MainActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView)findViewById(R.id.layout_feed);
@@ -31,6 +35,20 @@ public class MainActivity extends Activity{
 
         PostAdapter adapter = new PostAdapter(dummyFeed);
         mRecyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
 
     }
 
