@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
                 dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
                 dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
 
-                ProfileAdapter pAdapter = new ProfileAdapter(new User("TheDude", "Penis"), dummyFeed, MainActivity.this);
+                ProfileAdapter pAdapter = new ProfileAdapter(null, dummyFeed, MainActivity.this);
 
                 mRecyclerView.setAdapter(pAdapter);
 
