@@ -3,9 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="584dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:src="@drawable/beautiful"
+        android:background="#45ffffff"
+        android:backgroundTintMode="src_over" />
+
     <com.facebook.login.widget.LoginButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/log_in_button"
         android:layout_gravity="center" />
+
 </FrameLayout>
