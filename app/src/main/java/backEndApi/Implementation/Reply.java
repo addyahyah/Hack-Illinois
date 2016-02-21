@@ -45,4 +45,9 @@ public class Reply implements IReply {
     public IUser getReviewee() {
         return this.post.getAuthor();
     }
+
+    @Override
+    public void setRate() {
+
+    }
 }

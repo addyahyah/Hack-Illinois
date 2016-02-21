@@ -16,8 +16,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.LoginButton;
 
-import java.util.LinkedList;
-
 /**
  * Created by Joe on 2/20/2016.
  */
@@ -102,8 +100,6 @@ public class MainActivity extends Activity{
         sv.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//                startActivity(intent);
 
                 return false;
             }

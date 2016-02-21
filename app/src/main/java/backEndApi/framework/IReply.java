@@ -8,4 +8,6 @@ public interface IReply {
     public void edit(String str);
     public IUser getAuthor();
     public IUser getReviewee();
+
+    void setRate();
 }

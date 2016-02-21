@@ -9,13 +9,12 @@
         android:layout_height="65dp"
         android:text="Accept"
         android:id="@+id/btn_accept_post"
-        android:textColor="#FF026A00"
+        android:textColor="#026a00"
         android:background="#ffffff" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/post_holder"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.04" />
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
