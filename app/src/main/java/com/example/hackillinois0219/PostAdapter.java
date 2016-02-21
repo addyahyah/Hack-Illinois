@@ -2,6 +2,7 @@ package com.example.hackillinois0219;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mActivity.getApplicationContext(), PostActivity.class);
-                    intent.putExtra("Post", mPosts.get(mPosition));
+                    intent.putExtra("Post", (Parcelable) mPosts.get(mPosition));
                     mActivity.startActivity(intent);
 
                 }

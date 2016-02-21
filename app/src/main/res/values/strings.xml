@@ -10,5 +10,9 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    
+    <string name="empty_slot">Empty Slot</string>
+    <string name="greeting_format">Hello, %s!</string>
+    <string name="greeting_no_user">Please select a user via the options menu</string>
+    <string name="menu_item_switch_user">Select User</string>
+    <string name="menu_item_clear_slot">Clear this slot</string>
 </resources>

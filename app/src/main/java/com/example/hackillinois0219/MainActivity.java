@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toolbar;
 
 import com.facebook.FacebookSdk;
@@ -34,27 +35,46 @@ public class MainActivity extends Activity{
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main);
 
+
+//        if(savedInstanceState==null){
+            this.switchToFeedFragment();
+//        }else {
+//
+//        }
+
+//        facebookLoginButton = (LoginButton)findViewById(R.id.log_in_button);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setUpActionBar();
+//
+//        mRecyclerView = (RecyclerView)findViewById(R.id.layout_feed);
+//        mStaggeredLayoutManager =
+//                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+//        mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+//
+//        LinkedList<Post> dummyFeed = new LinkedList<>();
+//        dummyFeed.add(new Post("Laundry", "Joe", "Pending", "Get my laundry and bring it to my apartment at Heritage Trail", 3));
+//        dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
+//        dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
+//
+//        PostAdapter adapter = new PostAdapter(dummyFeed, this);
+//        mRecyclerView.setAdapter(adapter);
+//        }
+
+    }
+
+    public void switchToLoginFragment(){
+        findViewById(R.id.tabs).setVisibility(View.GONE);
+        findViewById(R.id.toolbar).setVisibility(View.GONE);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.login_fragment_container, new LoginFragment(), "login");
+        ft.replace(R.id.fragment_container_main, new LoginFragment(), "login");
         ft.commit();
+    }
 
-        facebookLoginButton = (LoginButton)findViewById(R.id.log_in_button);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setUpActionBar();
-
-        mRecyclerView = (RecyclerView)findViewById(R.id.layout_feed);
-        mStaggeredLayoutManager =
-                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
-
-        LinkedList<Post> dummyFeed = new LinkedList<>();
-        dummyFeed.add(new Post("Laundry", "Joe", "Pending", "Get my laundry and bring it to my apartment at Heritage Trail", 3));
-        dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
-        dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
-
-        PostAdapter adapter = new PostAdapter(dummyFeed, this);
-        mRecyclerView.setAdapter(adapter);
-
+    public void switchToFeedFragment(){
+        //TODO: need to create feedFragment
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new ProfileFragment(), "login");
+        ft.commit();
     }
 
     @Override
