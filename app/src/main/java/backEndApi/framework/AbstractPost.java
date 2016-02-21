@@ -9,7 +9,7 @@ import java.util.Observable;
  * Created by yangr on 2/20/2016.
  */
 public abstract class AbstractPost extends Observable implements IPost {
-    private final int barginTime = 180; //in seconds
+    protected int bargainTime; //in seconds
     protected IUser author;
     protected IUser seller;
     protected String postId;
@@ -29,6 +29,7 @@ public abstract class AbstractPost extends Observable implements IPost {
         this.replies = (List<IReply>) postMap.get("replies");
         this.creationTime = (Date) postMap.get("creationDate");
         this.expirationTime = (Date) postMap.get("expirationTime");
+        this.bargainTime = (int) postMap.get("baragainTime");
         this.hasTransactionComplete = (boolean) postMap.get("hasTransactionComplete");
     }
 
