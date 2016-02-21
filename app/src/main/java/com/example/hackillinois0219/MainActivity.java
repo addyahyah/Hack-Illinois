@@ -88,7 +88,13 @@ public class MainActivity extends Activity {
                 mStaggeredLayoutManager =
                         new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
                 mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
-                ProfileAdapter pAdapter = new ProfileAdapter(new User("TheDude", "Penis"), MainActivity.this);
+
+                LinkedList<Post> dummyFeed = new LinkedList<>();
+                dummyFeed.add(new Post("Laundry", "Joe", "Pending", "Get my laundry and bring it to my apartment at Heritage Trail", 3));
+                dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
+                dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
+
+                ProfileAdapter pAdapter = new ProfileAdapter(new User("TheDude", "Penis"), dummyFeed, MainActivity.this);
 
                 mRecyclerView.setAdapter(pAdapter);
 
