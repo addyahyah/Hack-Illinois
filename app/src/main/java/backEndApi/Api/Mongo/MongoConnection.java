@@ -8,14 +8,14 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
-public class MangoConnection {
+public class MongoConnection {
 
     private static ServerAddress address = new ServerAddress(
-            "ds037283.mongolab.com", 37283);
+            "ds011168.mongolab.com", 11168);
     private MongoClient mClient;
     private MongoDatabase mDB;
 
-    public MangoConnection(String database, String user, String pass) {
+    public MongoConnection(String database, String user, String pass) {
         List<MongoCredential> creds = new ArrayList<MongoCredential>();
         MongoCredential cred = MongoCredential.createCredential(user, database,
                 pass.toCharArray());

@@ -1,4 +1,4 @@
-package azurecomm.data;
+package backEndApi.Api.AzureApi;
 
 import java.sql.Timestamp;
 
