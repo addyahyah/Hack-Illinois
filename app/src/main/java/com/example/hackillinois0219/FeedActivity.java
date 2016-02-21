@@ -84,7 +84,7 @@ public class FeedActivity extends Activity {
                 dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
                 dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
 
-                final ProfileAdapter pAdapter = new ProfileAdapter(new User("TheDude", "Penis"), dummyFeed, new LinkedList<Review>(), FeedActivity.this);
+                final ProfileAdapter pAdapter = new ProfileAdapter(null, dummyFeed, new LinkedList<Review>(), FeedActivity.this);
                 ProfileAdapter.OnItemClickListener myFeed = new ProfileAdapter.OnItemClickListener() {
 
                     @Override
