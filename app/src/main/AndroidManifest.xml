@@ -43,6 +43,8 @@
             android:label="Fuck you">
 
         </activity>
+        <activity android:name=".FeedActivity"
+            android:label="Feed Activity" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

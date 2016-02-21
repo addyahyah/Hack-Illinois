@@ -56,6 +56,13 @@ public class LoginActivity extends Activity {
 
         callbackManager = CallbackManager.Factory.create();
 
+        if(AccessToken.getCurrentAccessToken()!=null){
+            Intent intent = new Intent();
+            intent.putExtra("Access Token", AccessToken.getCurrentAccessToken());
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
+
         // Callback registration
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -76,14 +83,18 @@ public class LoginActivity extends Activity {
                                     e.printStackTrace();
                                 }
                                 System.out.println("Work");
-                                goback(loginResult.getAccessToken());
 
+                                Intent intent = new Intent();
+                                intent.putExtra("Access Token", loginResult.getAccessToken());
+                                setResult(Activity.RESULT_OK, intent);
+                                finish();
                             }
                         });
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+
             }
 
             @Override
@@ -100,15 +111,11 @@ public class LoginActivity extends Activity {
         });
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    public void goback(AccessToken token){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Access Token", token);
-        startActivity(intent);
-        finish();
-    }
+
 }
