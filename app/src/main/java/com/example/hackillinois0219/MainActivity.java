@@ -3,6 +3,7 @@ package com.example.hackillinois0219;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
@@ -25,7 +26,7 @@ public class MainActivity extends Activity{
     private Menu mMenu;
     private LoginButton facebookLoginButton;
     private Toolbar toolbar;
-
+    private ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -34,7 +35,7 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.login_fragment_container, new MainFragment(), "login");
+        ft.replace(R.id.login_fragment_container, new LoginFragment(), "login");
         ft.commit();
 
 

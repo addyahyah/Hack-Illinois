@@ -11,41 +11,35 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="#136b03"
-        android:padding="5dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Feed"
-            android:id="@+id/btn_feed"
-            android:background="#136b03" />
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feed"
+                android:id="@+id/btn_feed"
+                android:background="#ffffff"
+            android:textColor="#FF026A00"
             android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:id="@+id/btn_profile"
-            android:background="#136b03" />
-
-        <Space
-            android:layout_width="20px"
-            android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:id="@+id/btn_profile"
+            android:textColor="#FF026A00"
+            android:background="#ffffff"
             android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notifications"
-            android:id="@+id/btn_notes"
-            android:background="#136b03" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notifications"
+                android:id="@+id/btn_notes"
+                android:background="#ffffff"
+            android:textColor="#026a00"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

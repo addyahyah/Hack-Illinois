@@ -23,12 +23,12 @@ import java.util.Arrays;
 /**
  * Created by yangr on 2/20/2016.
  */
-public class MainFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
     LoginButton facebookLoginButton;
     CallbackManager callbackManager;
 
-    public MainFragment(){}
+    public LoginFragment(){}
 
 
     @Override

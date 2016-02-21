@@ -27,12 +27,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile(group: 'com.microsoft.azure', name: 'azure-notifications-handler', version: '1.0.1', ext: 'jar')
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.google.guava:guava:18.0'
-	compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.microsoft.azure:azure-mobile-android:3.0'
-	compile (group: 'com.microsoft.azure', name: 'azure-notifications-handler', version: '1.0.1', ext: 'jar')
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile "com.android.support:cardview-v7:23.1.1"
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:support-v13:23.1.1'
 }
