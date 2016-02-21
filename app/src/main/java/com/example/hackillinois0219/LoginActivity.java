@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
         // Callback registration
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
                 // App code
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
@@ -76,6 +76,7 @@ public class LoginActivity extends Activity {
                                     e.printStackTrace();
                                 }
                                 System.out.println("Work");
+                                goback(loginResult.getAccessToken());
 
                             }
                         });
@@ -83,7 +84,6 @@ public class LoginActivity extends Activity {
                 parameters.putString("fields", "id,name,email,gender, birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
-                goback(loginResult.getAccessToken());
             }
 
             @Override
@@ -100,7 +100,11 @@ public class LoginActivity extends Activity {
         });
 
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
     public void goback(AccessToken token){
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("Access Token", token);
