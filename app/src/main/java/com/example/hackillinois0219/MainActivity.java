@@ -38,8 +38,6 @@ public class MainActivity extends Activity{
         ft.replace(R.id.login_fragment_container, new LoginFragment(), "login");
         ft.commit();
 
-
-
         facebookLoginButton = (LoginButton)findViewById(R.id.log_in_button);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpActionBar();
@@ -50,9 +48,9 @@ public class MainActivity extends Activity{
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
 
         LinkedList<Post> dummyFeed = new LinkedList<>();
-        dummyFeed.add(new Post("Laundry", "Joe", "Pending", 3));
-        dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", 4));
-        dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", 22));
+        dummyFeed.add(new Post("Laundry", "Joe", "Pending", "Get my laundry and bring it to my apartment at Heritage Trail", 3));
+        dummyFeed.add(new Post("Get Chinese", "Bob", "Bidding", "Can someone pick up my chinese food and bring it to BSB?", 4));
+        dummyFeed.add(new Post("Give me a blowjob", "RunZ", "Pending", "I'm just really horny", 22));
 
         PostAdapter adapter = new PostAdapter(dummyFeed, this);
         mRecyclerView.setAdapter(adapter);
