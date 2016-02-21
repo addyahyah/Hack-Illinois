@@ -2,7 +2,10 @@ package backEndApi.Api;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.util.JsonReader;
+import android.util.Log;
 
 import com.example.hackillinois0219.ToDoItem;
 import com.facebook.AccessToken;
@@ -13,6 +16,11 @@ import com.facebook.Profile;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
+import com.microsoft.windowsazure.mobileservices.table.sync.MobileServiceSyncContext;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDataType;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
+import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
+import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,27 +119,40 @@ public class BucksInstance {
     }
 
     public IUser getUser(String fbid) {
+        Log.d("AZURE", "getUser called");
         IUser toReturn = null;
+        azurecomm.data.User azureUser = null;
+        Log.d("AZURE", "Entered try");
         try {
-            azurecomm.data.User azureUser = mUserTable.lookUp(fbid).get();
-            final backEndApi.Implementation.User user = new User(azureUser);
-            new GraphRequest(
-                    AccessToken.getCurrentAccessToken(),
-                    "/" + fbid + "/",
-                    null,
-                    HttpMethod.GET,
-                    new GraphRequest.Callback() {
-                        @Override
-                        public void onCompleted(GraphResponse response) {
-                            user.setProfile(parseProfile(response));
-                        }
-                    }).executeAndWait();
-            toReturn = user;
+            azureUser = mUserTable.lookUp(fbid).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        Log.d("AZURE", "Looked up azureUser");
+        if(azureUser == null) {
+            Log.d("AZURE", "azureUser is null!");
+            azureUser = new azurecomm.data.User(fbid, 0.0f, 0, 0.0f, 0);
+            Log.d("AZURE", "created new azureUser");
+            mUserTable.insert(azureUser);
+            Log.d("AZURE", "inserted azureUser");
+        }
+        Log.d("AZURE", "azureUser exists");
+        final User user = new User(azureUser);
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/" + fbid + "/",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        Log.d("AZURE", "Graph request complete");
+                        user.setProfile(parseProfile(response));
+                    }
+                }).executeAsync();
+        toReturn = user;
         return toReturn;
     }
 
@@ -166,13 +187,18 @@ public class BucksInstance {
     }
 
     private BucksInstance(Activity activity, Profile profile) {
-        this.setupTables();
         this.posts = new ArrayList<IPost>();
         this.feed = new ArrayList<IPost>();
         try {
             // set up owner
             this.mClient = new MobileServiceClient("https://hackillinois0219.azurewebsites.net", activity);
+            Log.d("AZURE", "Client setup");
+            this.setupTables();
+            Log.d("AZURE", "Tables setup");
+            this.initLocalStore().get();
+            Log.d("AZURE", "Local store setup");
             owner = this.getUser(profile.getId());
+            Log.d("AZURE", "Got owner set");
 
             // set up feed
             List<Post> postList = mPostTable.orderBy("PostedTime", QueryOrder.Ascending).top(10).execute().get();
@@ -187,11 +213,7 @@ public class BucksInstance {
             this.getIPostListFromPostList(postList, this.posts);
 
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (MalformedURLException | MobileServiceLocalStoreException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -212,4 +234,104 @@ public class BucksInstance {
         owner.createPost(postmap);
     }
 
+    private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
+
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+
+                    MobileServiceSyncContext syncContext = mClient.getSyncContext();
+
+                    if (syncContext.isInitialized())
+                        return null;
+
+                    SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
+
+                    Map<String, ColumnDataType> tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("BuyerRating", ColumnDataType.Real);
+                    tableDefinition.put("BuyerRatingCount", ColumnDataType.Integer);
+                    tableDefinition.put("SellerRating", ColumnDataType.Real);
+                    tableDefinition.put("SellerRatingCount", ColumnDataType.Integer);
+                    localStore.defineTable("User", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("Title", ColumnDataType.String);
+                    tableDefinition.put("Description", ColumnDataType.String);
+                    tableDefinition.put("Price", ColumnDataType.Real);
+                    tableDefinition.put("LocationLat", ColumnDataType.Real);
+                    tableDefinition.put("LocationLong", ColumnDataType.Real);
+                    tableDefinition.put("BargainTime", ColumnDataType.Integer);
+                    tableDefinition.put("PostedTime", ColumnDataType.Date);
+                    tableDefinition.put("ExpirationTime", ColumnDataType.Date);
+                    localStore.defineTable("Post", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("PostID", ColumnDataType.String);
+                    tableDefinition.put("FacebookID", ColumnDataType.String);
+                    localStore.defineTable("Post_Buyer", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("ReplyID", ColumnDataType.String);
+                    tableDefinition.put("PostID", ColumnDataType.String);
+                    localStore.defineTable("Post_Replies", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("PostID", ColumnDataType.String);
+                    tableDefinition.put("FacebookID", ColumnDataType.String);
+                    tableDefinition.put("Price", ColumnDataType.Real);
+                    localStore.defineTable("Post_Seller", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("Message", ColumnDataType.String);
+                    tableDefinition.put("Time", ColumnDataType.Date);
+                    localStore.defineTable("Reply", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("PostID", ColumnDataType.String);
+                    tableDefinition.put("LeftByBuyer", ColumnDataType.Boolean);
+                    tableDefinition.put("Rating", ColumnDataType.Integer);
+                    tableDefinition.put("Review", ColumnDataType.String);
+                    localStore.defineTable("Review", tableDefinition);
+
+                    tableDefinition = new HashMap<String, ColumnDataType>();
+                    tableDefinition.put("id", ColumnDataType.String);
+                    tableDefinition.put("ReplyID", ColumnDataType.String);
+                    tableDefinition.put("FacebookID", ColumnDataType.String);
+                    localStore.defineTable("User_Replies", tableDefinition);
+
+                    SimpleSyncHandler handler = new SimpleSyncHandler();
+
+                    syncContext.initialize(localStore, handler).get();
+
+                } catch (final Exception e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+        };
+
+        return runAsyncTask(task);
+    }
+
+    /**
+     * Run an ASync task on the corresponding executor
+     * @param task
+     * @return
+     */
+    private AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            return task.execute();
+        }
+    }
 }
