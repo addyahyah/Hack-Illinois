@@ -18,7 +18,6 @@ import java.util.LinkedList;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     private LinkedList<Post> mPosts;
     private Activity mActivity;
-    private int mPosition;
 
     public PostAdapter(LinkedList<Post> posts, Activity activity){
         mPosts = posts;
@@ -39,7 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.mOwner.setText(mPosts.get(position).mName);
         holder.mComments.setText(mPosts.get(position).mComments + " Comments");
         holder.mBid.setText(mPosts.get(position).mBid + "$");
-        mPosition = position;
+        holder.mPosition = position;
 
     }
 
@@ -52,9 +51,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     protected class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mOwner;
-        TextView mStatus;
-        TextView mComments;
-        TextView mBid;
+        public TextView mStatus;
+        public TextView mComments;
+        public TextView mBid;
+        public int mPosition;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -57,6 +57,32 @@ public class Post implements IPost, Serializable, Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         String[] details = {mTitle, mName, mDescription, mStatus, mComments + "", mBid + ""};
+        dest.writeStringArray(details);
 
     }
+
+    protected Post(Parcel in) {
+        String[] details = new String[6];
+        in.readStringArray(details);
+
+        mTitle = details[0];
+        mName = details[1];
+        mDescription = details[2];
+        mStatus = details[3];
+        mComments = Integer.parseInt(details[4]);
+        mBid = Integer.parseInt(details[5]);
+
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 }
