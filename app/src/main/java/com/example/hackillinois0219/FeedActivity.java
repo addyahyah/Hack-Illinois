@@ -1,6 +1,7 @@
 package com.example.hackillinois0219;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,10 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toolbar;
 
+import com.facebook.Profile;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.LinkedList;
 
+import backEndApi.Api.BucksInstance;
 import backEndApi.Implementation.Review;
 import backEndApi.Implementation.User;
 
@@ -41,6 +44,8 @@ public class FeedActivity extends Activity {
         mStaggeredLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+
+        //BucksInstance bi = BucksInstance.getInstance(this, Profile.getCurrentProfile());
 
         LinkedList<Post> dummyFeed = new LinkedList<>();
         dummyFeed.add(new Post("Laundry", "Joe", "Pending", "Get my laundry and bring it to my apartment at Heritage Trail", 3));
@@ -148,7 +153,8 @@ public class FeedActivity extends Activity {
         sv.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
+                Intent i = new Intent(FeedActivity.this,PostAdd.class);
+                startActivity(i);
                 return false;
             }
         });
