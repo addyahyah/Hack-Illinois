@@ -36,30 +36,30 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
-
-        facebookLoginButton = (LoginButton) view.findViewById(R.id.log_in_button);
-
-        facebookLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
-
-        callbackManager = CallbackManager.Factory.create();
-
-        // Callback registration
-        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
+                                public View onCreateView(
+                                        LayoutInflater inflater,
+                                        ViewGroup container,
+                                        Bundle savedInstanceState) {
+                                    View view = inflater.inflate(R.layout.login_fragment, container, false);
+
+                                    facebookLoginButton = (LoginButton) view.findViewById(R.id.log_in_button);
+
+                                    facebookLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
+
+                                    callbackManager = CallbackManager.Factory.create();
+
+                                    // Callback registration
+                                    facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                                        @Override
+                                        public void onSuccess(LoginResult loginResult) {
+                                            // App code
+                                            GraphRequest request = GraphRequest.newMeRequest(
+                                                    loginResult.getAccessToken(),
+                                                    new GraphRequest.GraphJSONObjectCallback() {
+                                                        @Override
+                                                        public void onCompleted(JSONObject object, GraphResponse response) {
+                                                            Log.v("LoginActivity", response.toString());
                                 // Application code
                                 try {
                                     String email = object.getString("email");
