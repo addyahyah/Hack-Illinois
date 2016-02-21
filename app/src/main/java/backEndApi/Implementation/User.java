@@ -13,13 +13,27 @@ import backEndApi.framework.IUser;
  */
 public class User implements IUser{
     Profile owner;
-    String facebookId;
-    String name;
+    azurecomm.data.User azureData;
 
-    public User(String userName, String password){
-//     this.facebookId = dbconnectoin get facebookID
-//     this.name = getName and stuff
+    public User(azurecomm.data.User azureData) {
+        this.azureData = azureData;
     }
+
+    public User(Profile profile, azurecomm.data.User azureData){
+        this.owner = profile;
+        this.azureData = azureData;
+    }
+
+    public void setProfile(Profile p) { this.owner = p; }
+
+    public float getBuyerRating() { return azureData.getBuyerRating(); }
+    public float getSellerRating() { return azureData.getSellerRating(); }
+    public int getBuyerRatingCount() { return azureData.getBuyerRatingCount(); }
+    public int getSellerRatingCount() { return azureData.getSellerRatingCount(); }
+    public String getId() { return owner.getId(); }
+    public String getName() { return owner.getName(); }
+    public Profile getProfile() { return owner; }
+
     @Override
     public IPost createPost(Map<String, Object> postMap){
         return  new Post(postMap);
